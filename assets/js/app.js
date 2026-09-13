@@ -1,0 +1,7 @@
+document.addEventListener('DOMContentLoaded',()=>{
+ const list=document.querySelector('#formations');
+ if(list&&window.NOVAIA_FORMATIONS){list.innerHTML=NOVAIA_FORMATIONS.map(f=>`<article><span class="tag">${f.level}</span><h3>${f.title}</h3><p>${f.description}</p><p><strong>${f.modules.length} modules</strong> · ${f.duration}</p><a class="btn small" href="formation.html?id=${f.id}">Voir le programme →</a></article>`).join('')}
+ const course=document.querySelector('#course');
+ if(course&&window.NOVAIA_FORMATIONS){const id=new URLSearchParams(location.search).get('id')||'ia';const f=NOVAIA_FORMATIONS.find(x=>x.id===id)||NOVAIA_FORMATIONS[0];course.innerHTML=`<div class="course"><p class="eyebrow">${f.level.toUpperCase()} · ${f.duration}</p><h1>${f.title}</h1><p class="lead">${f.description}</p><div class="actions"><a class="btn" href="inscription.html">Commencer cette formation</a></div>${f.modules.map((m,i)=>`<article class="module"><span class="tag">MODULE ${i+1}</span><h3>${m.title}</h3><ul>${m.lessons.map(l=>`<li>${l}</li>`).join('')}</ul><p><strong>Exercice :</strong> ${m.exercise}</p><p><strong>Support :</strong> ${m.support}</p></article>`).join('')}</div>`}
+ document.querySelectorAll('form').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();const msg=form.querySelector('.form-message');if(msg)msg.textContent='Merci ! Cette version de démonstration a bien reçu ta demande.';}));
+});
